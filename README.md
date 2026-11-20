@@ -2,7 +2,7 @@
 
 ## Overview
 
-This package grades the answers of an AI model against structured answer keys, decides whether each answer passes or fails by a fixed rule, and counts how often the verdict flips when one factor is changed. It was extracted on 20 November 2026 from the EquityMedQA-SG v2 project (A*STAR), in which we used it to audit MedGemma 1.5 4B on 250 patient questions. The package contains no GPU code and requires only Python 3.10 or later, since it reaches the judge models through any OpenAI-compatible server, e.g., vLLM on any GPU, Ollama on a laptop, or a hosted API.
+This package grades the answers of an AI model against structured answer keys, decides whether each answer passes or fails by a fixed rule, and counts how often the verdict flips when one factor is changed. The package contains no GPU code and requires only Python 3.10 or later, since it reaches the judge models through any OpenAI-compatible server, e.g., vLLM on any GPU, Ollama on a laptop, or a hosted API.
 
 ## Rationale
 
