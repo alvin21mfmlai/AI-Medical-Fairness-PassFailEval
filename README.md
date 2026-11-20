@@ -66,11 +66,3 @@ All settings are kept in one YAML file, and the two files in `examples/toy` expl
 ## Limitations
 
 The flip counts detect differences between answers rather than errors, hence an answer that is equally incomplete for every group passes or fails equally for every group. Additionally, a blind spot shared by every author of keys and every judge cannot be detected, which is the reason for an expert review of the keys.
-
-## Fidelity to the study
-
-On the frozen results of the study, the package produced the same prompts for all 13,552 grading requests, the same measures and verdicts for all 13,540 valid grades, and the same values for all 60 published flip statistics. `PROVENANCE.md` maps every module to the code of the study, and the 17 tests pass on Python 3.10 and 3.12.
-
-## Status
-
-Version 0.1.1, 20 November 2026. The package is shared within A*STAR for the comparison of evaluation approaches. Its licence has not been decided, hence please ask before passing it on outside A*STAR. Contact: Alvin Chew, EquityMedQA-SG v2.
