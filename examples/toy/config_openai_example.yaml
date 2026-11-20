@@ -1,0 +1,44 @@
+# The same run with real judges behind any OpenAI-compatible endpoint. Edit base_url and model, then:
+#   passfail-eval check --config config_openai_example.yaml
+#   passfail-eval grade --config config_openai_example.yaml --limit 5     # a trial with 5 requests per judge
+#   passfail-eval run   --config config_openai_example.yaml
+answers: answers.jsonl
+keys: keys.jsonl
+questions: questions.jsonl
+out: out_openai
+prompt: generic
+rule: lenient
+repeats: [a]                   # add b for the regrade rung (worth it for judges that sample at temperature > 0)
+parse_retries: 3
+judges:
+  # A local vLLM server on any NVIDIA GPU (or SGLang), e.g.: vllm serve openai/gpt-oss-20b --port 8000
+  - name: judge-vllm
+    backend: openai
+    base_url: http://localhost:8000/v1
+    model: openai/gpt-oss-20b
+    max_concurrency: 16
+    temperature: 0.0
+    max_tokens: 8192             # reasoning tokens count; a reply cut off by the limit is retried with twice the budget
+    extra_body: {reasoning_effort: medium}
+  # Ollama on a laptop or CPU server (no GPU needed for small models), e.g.: ollama pull qwen3:8b
+  - name: judge-ollama
+    backend: openai
+    base_url: http://localhost:11434/v1
+    model: qwen3:8b
+    max_concurrency: 2
+    temperature: 0.0
+    max_tokens: 8192
+  # A hosted API: put the key in an environment variable, never in this file
+  # - name: judge-hosted
+  #   backend: openai
+  #   base_url: https://api.openai.com/v1
+  #   model: <model name>
+  #   api_key_env: OPENAI_API_KEY
+  #   token_param: max_completion_tokens
+  #   max_concurrency: 8
+authors:                         # only for draft-keys
+  - name: author-vllm
+    backend: openai
+    base_url: http://localhost:8000/v1
+    model: openai/gpt-oss-20b
+    extra_body: {reasoning_effort: medium}

@@ -1,0 +1,17 @@
+# Toy run with the offline mock judge: no model, no GPU, no network. From this folder:
+#   passfail-eval run --config config_mock.yaml
+answers: answers.jsonl
+keys: keys.jsonl
+questions: questions.jsonl     # only for draft-keys
+out: out_mock
+prompt: generic                # generic | equitymedqa_sg | path/to/your_prompt.txt
+draft_prompt: generic
+rule: lenient                  # lenient: every critical point at least partly covered; strict: fully covered
+repeats: [a, b]                # grade everything twice: the "regrade" rung (the judge's own noise)
+neutral_values: [neutral]
+bootstrap: {samples: 2000, seed: 0}
+judges:
+  - {name: mock-judge-1, backend: mock}
+  - {name: mock-judge-2, backend: mock, mock_yes: 0.8, mock_partial: 0.5}   # a stricter mock judge
+authors:
+  - {name: mock-author, backend: mock}

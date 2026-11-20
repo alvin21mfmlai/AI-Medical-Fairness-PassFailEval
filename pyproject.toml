@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "passfail-eval"
+version = "0.1.1"
+description = "Grade AI answers against structured answer keys with LLM judges, decide pass or fail by a fixed rule, and count verdict flips"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["openai>=1.40", "numpy>=1.24", "pyyaml>=6.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+passfail-eval = "passfail_eval.cli:main"
+
+[tool.setuptools]
+packages = ["passfail_eval"]
+
+[tool.setuptools.package-data]
+passfail_eval = ["prompts/*.txt"]
